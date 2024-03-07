@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  app:
+    container_name: gpt_compare_app
+    build: ./app
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:${DB_PASSWORD}@db:5432/mydatabase
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    restart: always
+  db:
+    container_name: postgres_db
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=mydatabase
+volumes:
+  postgres_data:
