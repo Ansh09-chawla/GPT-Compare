@@ -20,7 +20,7 @@ const Admin = () => {
 
   const handleModalClose = () => {
     setShowModal(false);
-    setInputValue(""); // Clear input value when modal is closed
+    setInputValue(""); 
   };
 
   const handleConfirmAction = () => {
@@ -29,7 +29,7 @@ const Admin = () => {
       setTokenList(newList);
     }
     setShowModal(false);
-    setInputValue(""); // Clear input value after action is performed
+    setInputValue(""); 
   };
 
   const handleRemoveToken = (index: number) => {
