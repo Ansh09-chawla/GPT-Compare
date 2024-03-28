@@ -21,9 +21,9 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
 	return (
-		<Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+		<Card className="h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
 			<div className="mb-2 p-4">
-				<Typography variant="h5" className="text-[#171717]">
+				<Typography variant="h3" className="text-[#171717]">
 					GPT Compare
 				</Typography>
 			</div>

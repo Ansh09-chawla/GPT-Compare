@@ -24,7 +24,7 @@ const SignIn = () => {
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
 			<div className="w-full max-w-xs p-8 space-y-6 rounded-lg bg-white shadow-md font-inter">
-				<h1 className="text-center text-2xl font-bold text-gray-900 mb-4">
+				<h1 className="text-center text-3xl font-bold text-gray-900 mb-4">
 					GPT Compare
 				</h1>
 				<form className="space-y-6" onSubmit={handleSubmit}>
