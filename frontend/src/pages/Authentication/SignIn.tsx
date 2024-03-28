@@ -14,11 +14,8 @@ const SignIn = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// Here you would handle user authentication
-		// ...
 
-		// Redirect to dashboard or another appropriate page on successful login
-		navigate("/home"); // Adjust the path as needed
+		navigate("/home");
 	};
 
 	return (
@@ -54,7 +51,7 @@ const SignIn = () => {
 					</div>
 					<button
 						type="submit"
-						className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+						className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 					>
 						Login
 					</button>
