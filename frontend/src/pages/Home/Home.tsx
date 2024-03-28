@@ -157,8 +157,13 @@ const Home = () => {
           </form>
         </div>
         {/* Second column, if there's a need for two separate columns */}
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-inter"></div>
+      </div>
+      <div className="flex space-x-4">
+        <div className="bg-white p-5 rounded shadow w-1/2 mt-8 h-64">
+          <span className="text-gray-600 text-base">Output</span>
+        </div>
+        <div className="bg-white p-5 rounded shadow w-1/2 mt-8 h-64">
+          <span className="text-gray-600 text-base">Output</span>
         </div>
       </div>
     </div>
