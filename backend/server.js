@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 
 // Route files
-const usersRoute = require("./routes/users");
+const usersRoutes = require("./routes/Users");
 
 // Use routes
-app.use("/users", usersRoute);
+app.use("/users", usersRoutes);
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
