@@ -12,6 +12,7 @@ import {
 	HomeIcon,
 	InformationCircleIcon,
 	UsersIcon,
+	Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
@@ -30,6 +31,14 @@ export default function Sidebar() {
 							<HomeIcon className="h-5 w-5" />
 						</ListItemPrefix>
 						Home
+					</ListItem>
+				</Link>
+				<Link to="/home/history" className="no-underline text-[#171717]">
+					<ListItem>
+						<ListItemPrefix>
+							<Bars3Icon className="h-5 w-5" />
+						</ListItemPrefix>
+						Hisory
 					</ListItem>
 				</Link>
 				<Link

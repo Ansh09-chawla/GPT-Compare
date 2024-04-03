@@ -7,6 +7,7 @@ import Admin from "./pages/AdminConfiguration/Admin";
 import Help from "./pages/Troubleshoot/Help";
 import Home from "./pages/Home/Home";
 import Users from "./pages/Users/Users";
+import History from "./pages/History/History";
 
 function App() {
 	const router = createBrowserRouter([
@@ -40,6 +41,10 @@ function App() {
 						{
 							path: "users",
 							element: <Users />, // Users component inside 'home'
+						},
+						{
+							path: "history",
+							element: <History />, // Comparison History component inside 'home'
 						},
 						{
 							path: "help-page",
