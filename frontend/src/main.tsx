@@ -5,10 +5,14 @@ import "./index.css";
 
 import { ThemeProvider } from "@material-tailwind/react";
 
+import { AuthProvider } from "./contexts/AuthContext";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<ThemeProvider>
-			<App />
+			<AuthProvider>
+				<App />
+			</AuthProvider>
 		</ThemeProvider>
 	</React.StrictMode>
 );

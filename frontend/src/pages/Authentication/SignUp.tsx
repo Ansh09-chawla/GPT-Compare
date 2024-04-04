@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { usersService } from "../../services/UsersService";
 
 const SignUp = () => {
 	const navigate = useNavigate();
@@ -8,16 +9,39 @@ const SignUp = () => {
 		password: "",
 		verifyPassword: "",
 		email: "",
+		role: "user", // Assuming a default role, update as necessary
 	});
+	const [error, setError] = useState(""); // Optional: Manage error state
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: any) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
+		// Check if passwords match
+		if (formData.password !== formData.verifyPassword) {
+			setError("Passwords do not match.");
+			return;
+		}
 
-		navigate("/");
+		try {
+			const { success, user } = await usersService.signUp(
+				formData.username,
+				formData.password,
+				formData.email,
+				formData.role
+			);
+
+			if (success) {
+				navigate("/"); // Navigate to the homepage or dashboard upon successful signup
+			} else {
+				setError("Failed to create an account.");
+			}
+		} catch (error) {
+			console.error("Signup error:", error);
+			setError("An error occurred during signup.");
+		}
 	};
 
 	return (
@@ -74,6 +98,7 @@ const SignUp = () => {
 					</p>
 				</form>
 			</div>
+			{error && <p className="text-red-500">{error}</p>}
 		</div>
 	);
 };

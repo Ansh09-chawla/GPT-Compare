@@ -1,21 +1,41 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { usersService } from "../../services/UsersService";
+import useAuth from "../../contexts/AuthContext";
 
 const SignIn = () => {
 	const navigate = useNavigate();
+	const { signIn } = useAuth();
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
 	});
+	const [error, setError] = useState("");
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: any) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-
-		navigate("/home");
+		// Attempt to sign in with the provided credentials
+		try {
+			const response = await usersService.signIn(
+				formData.username,
+				formData.password
+			);
+			if (response.success) {
+				// Use signIn from AuthContext to update global state
+				signIn(response.token, response.user, response.role);
+				navigate("/home"); // Navigate to home page or dashboard upon successful login
+			} else {
+				// Handle unsuccessful sign-in attempts
+				setError("Invalid login credentials.");
+			}
+		} catch (err) {
+			console.error("Login error:", err);
+			setError("An error occurred during sign-in.");
+		}
 	};
 
 	return (
@@ -64,6 +84,7 @@ const SignIn = () => {
 					</p>
 				</form>
 			</div>
+			{error && <p className="text-red-500">{error}</p>}
 		</div>
 	);
 };

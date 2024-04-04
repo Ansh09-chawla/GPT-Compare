@@ -37,6 +37,8 @@ export const userLogin = (req, res) => {
 		return res.status(200).json({
 			message: "User logged in successfully",
 			token: token,
+			user: user,
+			role: user.role,
 		});
 	})(req, res);
 };
