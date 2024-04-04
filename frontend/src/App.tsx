@@ -8,6 +8,8 @@ import Help from "./pages/Troubleshoot/Help";
 import Home from "./pages/Home/Home";
 import Users from "./pages/Users/Users";
 import History from "./pages/History/History";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
 	const router = createBrowserRouter([
@@ -32,19 +34,35 @@ function App() {
 						},
 						{
 							path: "account-settings",
-							element: <Account />, // Account Settings component inside 'home'
+							element: (
+								<ProtectedRoute>
+									<Account />
+								</ProtectedRoute>
+							), // Account Settings component inside 'home'
 						},
 						{
 							path: "admin-settings",
-							element: <Admin />, // Admin Configuration component inside 'home'
+							element: (
+								<AdminRoute>
+									<Admin />
+								</AdminRoute>
+							), // Admin Configuration component inside 'home'
 						},
 						{
 							path: "users",
-							element: <Users />, // Users component inside 'home'
+							element: (
+								<AdminRoute>
+									<Users />
+								</AdminRoute>
+							), // Users component inside 'home'
 						},
 						{
 							path: "history",
-							element: <History />, // Comparison History component inside 'home'
+							element: (
+								<ProtectedRoute>
+									<History />
+								</ProtectedRoute>
+							), // Comparison History component inside 'home'
 						},
 						{
 							path: "help-page",
