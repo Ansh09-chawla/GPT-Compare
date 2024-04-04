@@ -1,4 +1,4 @@
-import { pgDatabase } from "../config/DatabaseConfig";
+import pgDatabase from "../config/DatabaseConfig.js";
 
 // Retrieve all temperatures
 export const getAllTemperatures = async () => {
@@ -43,10 +43,8 @@ export const overwriteTemperatures = async (temperatures) => {
   }
 };
 
-import { pgDatabase } from "../config/DatabaseConfig";
-
 // Insert a new temperature
-export const insertTemperature = async (temperature) => {
+export const addTemperature = async (temperature) => {
   try {
     // Ensure the temperature is within the allowed range
     if (temperature < 0.0 || temperature > 1.0) {

@@ -16,7 +16,7 @@ CREATE TABLE users (
 -- Create AI models table
 DROP TABLE IF EXISTS ai_models;
 CREATE TABLE ai_models (
-    model_id INT AUTO_INCREMENT PRIMARY KEY,
+    model_id Serial PRIMARY KEY,
     model_name VARCHAR(255) NOT NULL,
     description TEXT
 );

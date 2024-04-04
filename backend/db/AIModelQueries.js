@@ -1,39 +1,46 @@
-import express from "express";
-import * as AIModelQueries from "./AIModelQueries";
+import pgDatabase from "../config/DatabaseConfig.js";
 
-const router = express.Router();
-
-// GET endpoint to retrieve all AI models
-router.get("/ai-models", async (req, res) => {
+// Retrieve names and descriptions of all AI models
+export const getAllAIModels = async () => {
   try {
-    const aiModels = await AIModelQueries.getAllAIModels();
-    res.status(200).json(aiModels);
+    const query = "SELECT * FROM ai_models";
+    const result = await pgDatabase.query(query);
+    return result.rows;
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error querying the ai_models table", error);
+    throw error;
   }
-});
+};
 
-// POST endpoint to add a new AI model
-router.post("/ai-models", async (req, res) => {
+// Add a new AI model
+export const addAIModel = async (modelName, description) => {
   try {
-    const { modelName, description } = req.body;
-    const newModel = await AIModelQueries.addAIModel(modelName, description);
-    res.status(200).json(newModel);
+    const query =
+      "INSERT INTO ai_models (model_name, description) VALUES ($1, $2) RETURNING *";
+    const values = [modelName, description];
+    const result = await pgDatabase.query(query, values);
+    return result.rows[0];
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error adding a new AI model", error);
+    throw error;
   }
-});
+};
 
-// DELETE endpoint to delete an AI model
-router.delete("/ai-models/:modelId", async (req, res) => {
+// Delete an AI model by primary key
+export const deleteAIModel = async (modelId) => {
   try {
-    const { modelId } = req.params;
-    const deletedModel = await AIModelQueries.deleteAIModel(modelId);
-    res.status(200).json(deletedModel);
+    const query = "DELETE FROM ai_models WHERE model_id = $1 RETURNING *";
+    const values = [modelId];
+    const result = await pgDatabase.query(query, values);
+    if (result.rows.length === 0) {
+      throw new Error("AI model not found or already deleted");
+    }
+    return result.rows[0];
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error deleting AI model", error);
+    throw error;
   }
-});
+};
 
 // Function to fetch a model name by its ID
 export const fetchModelNameById = async (modelId) => {
@@ -51,5 +58,3 @@ export const fetchModelNameById = async (modelId) => {
     throw error;
   }
 };
-
-export default router;
