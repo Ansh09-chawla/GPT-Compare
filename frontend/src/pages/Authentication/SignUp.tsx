@@ -26,6 +26,7 @@ const SignUp = () => {
 		}
 
 		try {
+			console.log(formData);
 			const { success, user } = await usersService.signUp(
 				formData.username,
 				formData.password,

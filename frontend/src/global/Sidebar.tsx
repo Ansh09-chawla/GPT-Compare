@@ -15,8 +15,10 @@ import {
 	Bars3Icon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import useAuth from "../contexts/AuthContext";
 
 export default function Sidebar() {
+	const { signOut } = useAuth();
 	return (
 		<Card className="h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ">
 			<div className="mb-2 p-4">
@@ -76,7 +78,7 @@ export default function Sidebar() {
 						Users
 					</ListItem>
 				</Link>
-				<Link to="/" className="no-underline text-[#171717]">
+				<Link to="/" onClick={signOut} className="no-underline text-[#171717]">
 					<ListItem>
 						<ListItemPrefix>
 							<PowerIcon className="h-5 w-5" />
