@@ -1,4 +1,3 @@
-import express from "express";
 import * as AIModelQueries from "../db/AIModelQueries";
 
 // GET endpoint to retrieve all AI models

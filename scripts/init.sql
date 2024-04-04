@@ -5,15 +5,12 @@ USE gpt_compare;
 -- Enhanced users table with preferences
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(50) NOT NULL,
     role VARCHAR(50) NOT NULL,
-    preferred_model VARCHAR(50),
-    preferred_temperature DECIMAL(3,2),
-    preferred_max_tokens INT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create AI models table
