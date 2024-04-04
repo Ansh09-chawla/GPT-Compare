@@ -24,6 +24,21 @@ CREATE TABLE ai_models (
     description TEXT
 );
 
+-- Create tokens table
+DROP TABLE IF EXISTS tokens;
+CREATE TABLE tokens (
+    min_value INT,
+    max_value INT,
+    PRIMARY KEY (min_value, max_value)
+);
+
+-- Create temperatures table
+DROP TABLE IF EXISTS temperatures;
+CREATE TABLE temperatures (
+    temperature FLOAT CHECK (temperature >= 0.0 AND temperature <= 1.0),
+    PRIMARY KEY (temperature)
+);
+
 -- Create table to store allowed parameters for each model
 DROP TABLE IF EXISTS model_allowed_parameters;
 CREATE TABLE model_allowed_parameters (
