@@ -1,4 +1,4 @@
-import { pgDatabase } from "../config/DatabaseConfig";
+import pgDatabase from "../config/DatabaseConfig.js";
 
 export const findUserByEmail = async (email) => {
 	try {
@@ -51,7 +51,7 @@ export const findUserByUsername = async (username) => {
 export const createUser = async (username, password, email, role) => {
 	try {
 		const query =
-			"INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *";
+			"INSERT INTO users (username, password, email, role) VALUES ($1, $2, $3, $4) RETURNING *";
 		const values = [username, password, email, role];
 
 		// Execute the query

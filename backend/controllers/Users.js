@@ -44,6 +44,7 @@ export const userLogin = (req, res) => {
 };
 
 export const createUser = async (req, res) => {
+	console.log("REQ BODY------>", req.body);
 	const { username, password, email, role } = req.body;
 
 	try {

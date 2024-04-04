@@ -1,13 +1,13 @@
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
-import findUserByEmail from "../db/UserQueries.js";
+import { findUserByUsername } from "../db/UserQueries.js";
 
 function initialize(passport) {
 	console.log("Initialized");
 
 	const authenticateUser = async (username, password, done) => {
 		try {
-			const user = await findUserByEmail(username);
+			const user = await findUserByUsername(username);
 
 			if (!user) {
 				return done(null, false, {
