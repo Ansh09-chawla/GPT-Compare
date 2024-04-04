@@ -1,5 +1,5 @@
 import express from "express";
-import * as AIModelQueries from "../db/AIModelQueries";
+import * as AIModelQueries from "./AIModelQueries";
 
 const router = express.Router();
 
@@ -34,5 +34,22 @@ router.delete("/ai-models/:modelId", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Function to fetch a model name by its ID
+export const fetchModelNameById = async (modelId) => {
+  try {
+    const query = "SELECT model_name FROM ai_models WHERE model_id = $1";
+    const values = [modelId];
+    const result = await pgDatabase.query(query, values);
+    if (result.rows.length > 0) {
+      return result.rows[0].model_name; // Return the model name
+    } else {
+      throw new Error("Model not found");
+    }
+  } catch (error) {
+    console.error("Error fetching model name by ID", error);
+    throw error;
+  }
+};
 
 export default router;

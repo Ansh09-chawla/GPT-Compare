@@ -42,3 +42,40 @@ export const overwriteTemperatures = async (temperatures) => {
     throw error;
   }
 };
+
+import { pgDatabase } from "../config/DatabaseConfig";
+
+// Insert a new temperature
+export const insertTemperature = async (temperature) => {
+  try {
+    // Ensure the temperature is within the allowed range
+    if (temperature < 0.0 || temperature > 1.0) {
+      throw new Error("Temperature must be between 0.0 and 1.0");
+    }
+
+    const query =
+      "INSERT INTO temperatures (temperature) VALUES ($1) RETURNING *";
+    const values = [temperature];
+    const result = await pgDatabase.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error inserting temperature", error);
+    throw error;
+  }
+};
+
+// Delete a temperature by its value
+export const deleteTemperature = async (temperature) => {
+  try {
+    const query = "DELETE FROM temperatures WHERE temperature = $1 RETURNING *";
+    const values = [temperature];
+    const result = await pgDatabase.query(query, values);
+    if (result.rows.length === 0) {
+      throw new Error("Temperature not found or already deleted");
+    }
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error deleting temperature", error);
+    throw error;
+  }
+};
