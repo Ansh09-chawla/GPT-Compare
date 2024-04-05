@@ -1,4 +1,4 @@
-import pgDatabase from "../config/DatabaseConfig";
+import pgDatabase from "../config/DatabaseConfig.js";
 
 export const insertComparison = async (
 	userId,

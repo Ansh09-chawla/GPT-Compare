@@ -1,22 +1,21 @@
-// File: utils/OpenAIUtils.js
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI();
 
 export const generateResponseWithOpenAI = async (
-  prompt,
-  modelName,
-  temperature,
-  maxTokens
+	prompt,
+	modelName,
+	temperature,
+	maxTokens
 ) => {
-  const response = await openai.createCompletion({
-    model: modelName,
-    prompt: prompt,
-    temperature: temperature,
-    max_tokens: maxTokens,
-  });
-  return response.data.choices[0].text.trim();
+	const completion = await openai.chat.completions.create({
+		messages: [{ role: "user", content: prompt }],
+		model: modelName,
+		max_tokens: maxTokens,
+		temperature: temperature,
+	});
+
+	console.log(completion.choices[0]);
+
+	return completion.choices[0].message.content;
 };

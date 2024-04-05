@@ -1,7 +1,7 @@
 import express from "express";
-import * as ComparisonsQueries from "../db/ComparisonsQueries";
-import { fetchModelNameById } from "../db/AIModelQueries"; // Assume this function exists and fetches model name by ID
-import { generateResponseWithOpenAI } from "../utils/OpenAIUtils"; // Placeholder function for OpenAI API calls
+import * as ComparisonsQueries from "../db/ComparisonsQueries.js";
+import { fetchModelNameById } from "../db/AIModelQueries.js"; // Assume this function exists and fetches model name by ID
+import { generateResponseWithOpenAI } from "../utils/OpenAIUtils.js"; // Placeholder function for OpenAI API calls
 
 const router = express.Router();
 

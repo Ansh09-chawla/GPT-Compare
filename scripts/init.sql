@@ -39,8 +39,8 @@ CREATE TABLE temperatures (
 -- Create Comparisons table
 DROP TABLE IF EXISTS comparisons;
 CREATE TABLE comparisons (
-    comparison_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_prompting_id (user_id) REFERENCES users(id),
+    comparison_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id),
     temperature1 FLOAT,
     temperature2 FLOAT,
     token1 INT,
