@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import useAuth from "../contexts/AuthContext";
 import { ReactNode } from "react";
 
@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 	const { token, userRole } = useAuth();
 	// Check if authenticated and role is either 'user' or 'admin'
 	if (token && (userRole === "user" || userRole === "admin")) {
-		return <Outlet />;
+		return children;
 	} else {
 		return <Navigate to="/" />;
 	}
