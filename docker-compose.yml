@@ -1,26 +1,31 @@
 version: "3.8"
 services:
-  app:
-    container_name: gpt_compare_app
-    build: ./app
-    ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URL=postgresql://user:${DB_PASSWORD}@db:5432/mydatabase
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-    restart: always
   db:
-    container_name: postgres_db
+    container_name: gpt_compare_db
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./scripts:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_USER=user
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=mydatabase
+      - POSTGRES_DB=gpt_compare
+    ports:
+      - "5432:5432"
+  app:
+    container_name: gpt_compare_app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app
+      - ./backend/.env:/usr/src/app/.env
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    restart: always
+
 volumes:
   postgres_data:

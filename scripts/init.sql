@@ -1,9 +1,7 @@
-CREATE DATABASE IF NOT EXISTS gpt_compare;
-
-USE gpt_compare;
+-- Assuming connection to gpt_compare database is already established
 
 -- Enhanced users table with preferences
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -14,15 +12,15 @@ CREATE TABLE users (
 );
 
 -- Create AI models table
-DROP TABLE IF EXISTS ai_models;
+DROP TABLE IF EXISTS ai_models CASCADE;
 CREATE TABLE ai_models (
-    model_id Serial PRIMARY KEY,
+    model_id SERIAL PRIMARY KEY,
     model_name VARCHAR(255) NOT NULL,
     description TEXT
 );
 
 -- Create tokens table
-DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS tokens CASCADE;
 CREATE TABLE tokens (
     min_value INT,
     max_value INT,
@@ -30,14 +28,14 @@ CREATE TABLE tokens (
 );
 
 -- Create temperatures table
-DROP TABLE IF EXISTS temperatures;
+DROP TABLE IF EXISTS temperatures CASCADE;
 CREATE TABLE temperatures (
     temperature FLOAT CHECK (temperature >= 0.0 AND temperature <= 1.0),
     PRIMARY KEY (temperature)
 );
 
 -- Create Comparisons table
-DROP TABLE IF EXISTS comparisons;
+DROP TABLE IF EXISTS comparisons CASCADE;
 CREATE TABLE comparisons (
     comparison_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),
@@ -50,12 +48,14 @@ CREATE TABLE comparisons (
     prompt1 TEXT,
     prompt2 TEXT,
     response1 TEXT,
-    response2 TEXT
+    response2 TEXT,
+    FOREIGN KEY (temperature1) REFERENCES temperatures(temperature),
+    FOREIGN KEY (temperature2) REFERENCES temperatures(temperature),
+    FOREIGN KEY (token1, token2) REFERENCES tokens(min_value, max_value)
 );
-
 -- Role table if roles are expected to expand or need customization
-DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS roles CASCADE;
 CREATE TABLE roles (
-    role VARCHAR(50) PRIMARY KEY,
+    user_role TEXT PRIMARY KEY,
     description TEXT
 );
