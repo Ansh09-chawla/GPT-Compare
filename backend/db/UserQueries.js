@@ -73,24 +73,29 @@ export const createUser = async (username, password, email, role) => {
   }
 };
 
-export const updateUserDetails = async (id, updates) => {
+export const updateUserDetails = async (
+  id,
+  username,
+  password,
+  email,
+  role
+) => {
   try {
+    const updates = { username, password, email, role };
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}" = $${index + 2}`)
       .join(", ");
 
     const query = `UPDATE users SET ${setClause} WHERE id = $1 RETURNING *`;
 
-    const values = [id, ...Object.values(updates)];
-
-    // Execute the update query
+    const values = [id, username, password, email, role];
     const result = await pgDatabase.query(query, values);
 
     if (result.rows.length) {
-      console.log("User updated:", result.rows[0]);
+      // console.log("User updated:", result.rows[0]);
       return result.rows[0];
     } else {
-      console.log("No user found with the given id.");
+      // console.log("No user found with the given id.");
       return null;
     }
   } catch (error) {
