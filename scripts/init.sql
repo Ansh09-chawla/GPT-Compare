@@ -53,9 +53,3 @@ CREATE TABLE comparisons (
     FOREIGN KEY (temperature2) REFERENCES temperatures(temperature),
     FOREIGN KEY (token1, token2) REFERENCES tokens(min_value, max_value)
 );
--- Role table if roles are expected to expand or need customization
-DROP TABLE IF EXISTS roles CASCADE;
-CREATE TABLE roles (
-    user_role TEXT PRIMARY KEY,
-    description TEXT
-);
