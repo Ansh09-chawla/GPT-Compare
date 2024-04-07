@@ -52,7 +52,6 @@ export const findUserById = async (id) => {
   try {
     const query = "SELECT * FROM users WHERE id = $1";
     const values = [id];
-
     const result = await pgDatabase.query(query, values);
 
     if (result.rows.length) {

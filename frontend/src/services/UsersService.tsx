@@ -44,6 +44,18 @@ class UsersService {
     }
   }
 
+  async getUser(id: string) {
+    try {
+      const response = await authAxios.get(`/users/get-user/${id}`);
+      return {
+        success: true,
+        user: response.data,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateUser(id: string, username: string, email: string, role: string) {
     try {
       const response = await authAxios.put(`/users/user-update/`, {

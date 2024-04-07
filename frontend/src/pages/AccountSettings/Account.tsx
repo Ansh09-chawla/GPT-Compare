@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usersService } from "../../services/UsersService";
 import { jwtDecode } from "jwt-decode";
 
@@ -10,6 +10,29 @@ const AccountSettings = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (token) {
+          const decoded = jwtDecode(token);
+          const userId = decoded.userId;
+          const response = await usersService.getUser(userId);
+
+          if (response.success) {
+            setUsername(response.user.username);
+            setEmail(response.user.email);
+            setRole(response.user.role);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handlePasswordChange = () => {
     setShowModal(true);
@@ -90,21 +113,8 @@ const AccountSettings = () => {
             <input
               type="text"
               id="username"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="role"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Role:
-            </label>
-            <input
-              type="text"
-              id="role"
-              onChange={(e) => setRole(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
@@ -118,7 +128,24 @@ const AccountSettings = () => {
             <input
               type="email"
               id="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Role:
+            </label>
+            <input
+              type="text"
+              id="role"
+              placeholder={role}
+              readOnly
+              onChange={(e) => setRole(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>

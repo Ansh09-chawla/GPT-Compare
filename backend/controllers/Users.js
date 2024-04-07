@@ -73,6 +73,21 @@ export const createUser = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await userQueries.findUserById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
 export const updateUser = async (req, res) => {
   try {
     const { id, username, email, role } = req.body;
