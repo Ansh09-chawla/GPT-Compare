@@ -30,8 +30,8 @@ const Admin = () => {
 				setTemperatures(temperaturesData);
 
 				const tokenRangeData = await tokensService.getTokenRange();
-				setMinTokenValue(tokenRangeData.minValue);
-				setMaxTokenValue(tokenRangeData.maxValue);
+				setMinTokenValue(tokenRangeData.min_value);
+				setMaxTokenValue(tokenRangeData.max_value);
 			} catch (error) {
 				console.error("Failed to fetch initial data:", error);
 			}
@@ -42,18 +42,24 @@ const Admin = () => {
 
 	const handleAddModel = async (modelName: string) => {
 		try {
-			await aiModelsService.addAiModel({ model_name: modelName });
+			const newModelData = await aiModelsService.addAiModel({
+				modelName: modelName,
+				description: modelName,
+			});
 			setAiModels([
 				...aiModels,
-				{ model_id: Date.now().toString(), model_name: modelName },
+				{ model_id: newModelData.id, model_name: newModelData.model_name },
 			]);
 		} catch (error) {
 			console.error("Failed to add AI model:", error);
 		}
 	};
 
-	const handleDeleteModel = async (modelId: string) => {
+	const handleDeleteModel = async (modelName: string) => {
 		try {
+			const modelId = aiModels.find(
+				(model) => model.model_name === modelName
+			)?.model_id;
 			await aiModelsService.deleteAiModel(Number(modelId));
 			setAiModels(aiModels.filter((model) => model.model_id !== modelId));
 		} catch (error) {
@@ -148,32 +154,32 @@ const Admin = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
+		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-6">
 			<div className="w-full max-w-2xl p-8 space-y-6 rounded-lg bg-white shadow-lg font-inter">
 				<h1 className="text-center text-2xl font-bold text-gray-900">
 					Configuration
 				</h1>
 				<div className="space-y-4">
-					<div className="flex justify-between items-center">
-						<span className="text-lg font-semibold text-gray-900">
-							AI Model List :
+					<div className="flex justify-between items-center flex-col md:flex-row">
+						<span className="text-lg font-semibold text-gray-900 mb-2 md:mb-0">
+							AI Model List:
 						</span>
 						<div>
 							<button
 								onClick={handleAddModelClick}
-								className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+								className="mb-2 md:mb-0 mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 							>
 								Add
 							</button>
 							<button
 								onClick={handleRemoveModelClick}
-								className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+								className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 							>
 								Remove
 							</button>
 						</div>
 					</div>
-					<div className="flex flex-wrap">
+					<div className="flex flex-wrap justify-center">
 						{aiModels.map((model, index) => (
 							<div
 								key={index}
@@ -183,26 +189,26 @@ const Admin = () => {
 							</div>
 						))}
 					</div>
-					<div className="flex justify-between items-center">
-						<span className="text-lg font-semibold text-gray-900">
-							Temperature List :
+					<div className="flex justify-between items-center flex-col md:flex-row">
+						<span className="text-lg font-semibold text-gray-900 mb-2 md:mb-0">
+							Temperature List:
 						</span>
 						<div>
 							<button
 								onClick={handleAddTemperatureClick}
-								className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+								className="mb-2 md:mb-0 mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 							>
 								Add
 							</button>
 							<button
 								onClick={handleRemoveTemperatureClick}
-								className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+								className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
 							>
 								Remove
 							</button>
 						</div>
 					</div>
-					<div className="flex flex-wrap">
+					<div className="flex flex-wrap justify-center">
 						{temperatures.map((temp, index) => (
 							<div
 								key={index}
@@ -212,47 +218,52 @@ const Admin = () => {
 							</div>
 						))}
 					</div>
-					<div className="flex justify-between items-center">
+					<div className="flex flex-col md:flex-row justify-between items-center">
 						<span className="text-lg font-semibold text-gray-900">
-							Token Range :
+							Token Range:
 						</span>
-						<div className="flex gap-5">
-							<div className="flex flex-col">
-								<label
-									htmlFor="min"
-									className="text-sm font-medium text-gray-700"
-								>
-									Min
-								</label>
-								<input
-									id="min"
-									type="number"
-									value={minTokenValue}
-									onChange={handleMinChange}
-									className="mt-1 justify-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-								></input>
-							</div>
-							<div className="flex flex-col">
-								<label
-									htmlFor="max"
-									className="text-sm font-medium text-gray-700"
-								>
-									Max
-								</label>
-								<input
-									id="max"
-									type="number"
-									value={maxTokenValue}
-									onChange={handleMaxChange}
-									className="mt-1 justify-center px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-								></input>
-							</div>
+
+						<div className="flex flex-col">
+							<label
+								htmlFor="min"
+								className="text-sm font-medium text-gray-700"
+							>
+								Min
+							</label>
+							<input
+								id="min"
+								type="number"
+								value={minTokenValue}
+								onChange={handleMinChange}
+								className="mt-1 justify-center px-2 py-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm w-full md:w-40"
+							></input>
 						</div>
+						<div className="flex flex-col">
+							<label
+								htmlFor="max"
+								className="text-sm font-medium text-gray-700"
+							>
+								Max
+							</label>
+							<input
+								id="max"
+								type="number"
+								value={maxTokenValue}
+								onChange={handleMaxChange}
+								className="mt-1 justify-center px-2 py-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm w-full md:w-40"
+							></input>
+						</div>
+						<button
+							onClick={handleUpdateTokenRange}
+							className="mt-4 md:mt-0 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+						>
+							Update
+						</button>
 					</div>
 				</div>
 			</div>
 			{showModel && (
-				<div className="fixed top-0 left-50 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+				<div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
 					<div className="bg-white p-8 rounded-lg">
 						<h2 className="text-lg font-semibold mb-4">
 							{modalAction === "add" ? "Add" : "Remove"}{" "}
@@ -268,10 +279,16 @@ const Admin = () => {
 							onChange={handleInputChange}
 						/>
 						<div className="flex justify-end">
-							<button onClick={handleModalClose} className="...">
+							<button
+								onClick={handleModalClose}
+								className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+							>
 								Cancel
 							</button>
-							<button onClick={handleConfirmModalAction} className="...">
+							<button
+								onClick={handleConfirmModalAction}
+								className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+							>
 								Confirm
 							</button>
 						</div>
