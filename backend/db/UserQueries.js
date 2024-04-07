@@ -70,6 +70,24 @@ export const findUserById = async (id) => {
   }
 };
 
+export const findAllUsers = async () => {
+  try {
+    const query = "SELECT * FROM users";
+    const result = await pgDatabase.query(query);
+
+    if (result.rows.length) {
+      return result.rows;
+    } else {
+      // No users found
+      console.log("No users found.");
+      return [];
+    }
+  } catch (error) {
+    console.error("Error querying the database", error);
+    throw error;
+  }
+};
+
 export const createUser = async (username, password, email, role) => {
   try {
     const query =
@@ -122,6 +140,19 @@ export const updateUserDetails = async (id, username, email, role) => {
   }
 };
 
+export const updateUserRole = async (id, role) => {
+  const query = "UPDATE users SET role = $2 WHERE id = $1 RETURNING *";
+  const values = [id, role];
+
+  try {
+    const result = await pgDatabase.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error updating user role in the database", error);
+    throw error;
+  }
+};
+
 export const updateUserPassword = async (id, hashedPassword) => {
   const query = "UPDATE users SET password = $2 WHERE id = $1 RETURNING *";
   const values = [id, hashedPassword];
@@ -131,6 +162,25 @@ export const updateUserPassword = async (id, hashedPassword) => {
     return result.rows[0];
   } catch (error) {
     console.error("Error updating user password in the database", error);
+    throw error;
+  }
+};
+
+export const deleteUser = async (id) => {
+  const query = "DELETE FROM users WHERE id = $1 RETURNING *";
+  const values = [id];
+
+  try {
+    const result = await pgDatabase.query(query, values);
+    if (result.rows.length) {
+      console.log("User deleted:", result.rows[0]);
+      return result.rows[0];
+    } else {
+      console.log("No user found with that id.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error deleting user from the database", error);
     throw error;
   }
 };

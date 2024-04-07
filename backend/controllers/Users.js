@@ -88,6 +88,17 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await userQueries.findAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching users", error: error.message });
+  }
+};
+
 export const updateUser = async (req, res) => {
   try {
     const { id, username, email, role } = req.body;
@@ -110,6 +121,27 @@ export const updateUser = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error updating user", error: err.message });
+  }
+};
+
+export const updateUserRole = async (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+
+  try {
+    const updatedUser = await userQueries.updateUserRole(id, role);
+
+    if (updatedUser) {
+      res
+        .status(200)
+        .json({ message: "User role updated successfully", user: updatedUser });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating user role", error: error.message });
   }
 };
 
@@ -140,5 +172,24 @@ export const changePassword = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await userQueries.deleteUser(id);
+
+    if (deletedUser) {
+      res
+        .status(200)
+        .json({ message: "User deleted successfully", user: deletedUser });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error deleting user", error: error.message });
   }
 };
