@@ -37,11 +37,7 @@ const AccountSettings = () => {
       const decoded = jwtDecode(token);
       const userId = decoded.userId;
 
-      const response = await usersService.changePassword(
-        userId,
-        currentPassword,
-        newPassword
-      );
+      await usersService.changePassword(userId, currentPassword, newPassword);
       alert("Password changed successfully");
 
       setCurrentPassword("");
@@ -69,7 +65,7 @@ const AccountSettings = () => {
         return;
       }
 
-      const response = await usersService.updateUser(id, username, email, role);
+      await usersService.updateUser(id, username, email, role);
       alert("User updated successfully");
     } catch (error) {
       console.error("Error updating user:", error);
