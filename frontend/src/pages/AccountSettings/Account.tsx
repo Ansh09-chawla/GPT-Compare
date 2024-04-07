@@ -22,11 +22,36 @@ const AccountSettings = () => {
     setConfirmPassword("");
   };
 
-  const handleChangePassword = () => {
-    setShowModal(false);
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      alert("New password and confirm password do not match.");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("No token found");
+        return;
+      }
+      const decoded = jwtDecode(token);
+      const userId = decoded.userId;
+
+      const response = await usersService.changePassword(
+        userId,
+        currentPassword,
+        newPassword
+      );
+      alert("Password changed successfully");
+
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error changing password:", error);
+      alert("Error changing password");
+    }
   };
 
   const handleSaveChanges = async () => {
@@ -45,7 +70,6 @@ const AccountSettings = () => {
       }
 
       const response = await usersService.updateUser(id, username, email, role);
-      console.log(response);
       alert("User updated successfully");
     } catch (error) {
       console.error("Error updating user:", error);

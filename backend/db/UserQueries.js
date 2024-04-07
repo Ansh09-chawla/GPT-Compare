@@ -48,6 +48,29 @@ export const findUserByUsername = async (username) => {
   }
 };
 
+export const findUserById = async (id) => {
+  try {
+    const query = "SELECT * FROM users WHERE id = $1";
+    const values = [id];
+
+    const result = await pgDatabase.query(query, values);
+
+    if (result.rows.length) {
+      console.log("User found:", result.rows[0]);
+
+      // Returning the first user found
+      return result.rows[0];
+    } else {
+      // No user found with that id
+      console.log("No user found with that id.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error querying the database", error);
+    throw error;
+  }
+};
+
 export const createUser = async (username, password, email, role) => {
   try {
     const query =
@@ -87,20 +110,28 @@ export const updateUserDetails = async (id, username, email, role) => {
     const query = `UPDATE users SET ${setClause} WHERE id = $1 RETURNING *`;
     const values = [id, ...Object.values(updates)];
 
-    console.log("Query:", query);
-    console.log("Values:", values);
-
     const result = await pgDatabase.query(query, values);
 
     if (result.rows.length) {
-      console.log("User updated:", result.rows[0]);
       return result.rows[0];
     } else {
-      console.log("No user found with the given id.");
       return null;
     }
   } catch (error) {
     console.error("Error updating the user in the dataaaabase", error);
+    throw error;
+  }
+};
+
+export const updateUserPassword = async (id, hashedPassword) => {
+  const query = "UPDATE users SET password = $2 WHERE id = $1 RETURNING *";
+  const values = [id, hashedPassword];
+
+  try {
+    const result = await pgDatabase.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error updating user password in the database", error);
     throw error;
   }
 };
