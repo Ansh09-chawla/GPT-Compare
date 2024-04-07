@@ -4,18 +4,31 @@ class TemperaturesService {
 	async getAllTemperatures() {
 		try {
 			const response = await authAxios.get("/temperatures/");
-			// The response should contain the token and role upon successful login
-			return {
-				success: true,
-				token: response.data.token,
-				user: response.data.user,
-				role: response.data.role,
-				message: response.data.message,
-			};
+			return response.data;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async addTemperature(temperature: number) {
+		try {
+			const response = await authAxios.post("/temperatures/add", {
+				temperature,
+			});
+			return response.status;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async deleteTemperature(temperature: number) {
+		try {
+			const response = await authAxios.delete(`/temperatures/${temperature}`);
+			return response.status;
 		} catch (error) {
 			throw error;
 		}
 	}
 }
 
-export const usersService = new TemperaturesService();
+export const temperatureService = new TemperaturesService();
