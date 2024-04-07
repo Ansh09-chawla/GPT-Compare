@@ -43,6 +43,40 @@ class UsersService {
       throw error;
     }
   }
+
+  async updateUser(id: string, username: string, email: string, role: string) {
+    try {
+      const response = await authAxios.put(`/users/user-update/`, {
+        id,
+        username,
+        email,
+        role,
+      });
+      return {
+        success: true,
+        user: response.data,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string
+  ) {
+    try {
+      const response = await authAxios.put("/users/change-password", {
+        userId,
+        currentPassword,
+        newPassword,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const usersService = new UsersService();

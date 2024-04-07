@@ -75,13 +75,11 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    //const { id } = req.params;
-    const { id, username, password, email, role } = req.body;
+    const { id, username, email, role } = req.body;
 
     const updatedUser = await userQueries.updateUserDetails(
       id,
       username,
-      password,
       email,
       role
     );
@@ -97,5 +95,35 @@ export const updateUser = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error updating user", error: err.message });
+  }
+};
+
+export const changePassword = async (req, res) => {
+  try {
+    const { userId, currentPassword, newPassword } = req.body;
+    const user = await userQueries.findUserById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) {
+      return res.status(401).json({ message: "Current password is incorrect" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updatedUser = await userQueries.updateUserPassword(
+      userId,
+      hashedPassword
+    );
+
+    if (updatedUser) {
+      res.status(200).json({ message: "Password updated successfully" });
+    } else {
+      res.status(500).json({ message: "Error updating password" });
+    }
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };
