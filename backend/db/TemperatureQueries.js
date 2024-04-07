@@ -5,8 +5,7 @@ export const getAllTemperatures = async () => {
   try {
     const query = "SELECT * FROM temperatures";
     const result = await pgDatabase.query(query);
-
-    return result.rows;
+    return result.rows.map((row) => row.temperature);
   } catch (error) {
     console.error("Error querying the temperatures table", error);
     throw error;
