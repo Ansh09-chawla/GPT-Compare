@@ -66,10 +66,13 @@ export const createUser = async (req, res) => {
       role
     );
 
-    return newUser;
+    res.status(201).json({
+      message: "User created successfully",
+      user: newUser,
+    });
   } catch (err) {
     // console.error(err.message);
-    throw err;
+    res.status(500).json({ error: error.message });
   }
 };
 
