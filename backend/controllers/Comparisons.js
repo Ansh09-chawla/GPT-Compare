@@ -2,6 +2,7 @@ import express from "express";
 import * as ComparisonsQueries from "../db/ComparisonsQueries.js";
 import { fetchModelNameById } from "../db/AIModelQueries.js"; // Assume this function exists and fetches model name by ID
 import { generateResponseWithOpenAI } from "../utils/OpenAIUtils.js"; // Placeholder function for OpenAI API calls
+import { callChain } from "../utils/Langchain.js"; // Placeholder function for Langchain API calls
 
 const router = express.Router();
 
@@ -36,13 +37,13 @@ export const createComparison = async (req, res) => {
 		const modelName2 = await fetchModelNameById(modelId2);
 
 		// Call OpenAI's API to generate responses for both prompts
-		const response1 = await generateResponseWithOpenAI(
+		const response1 = await callChain(
 			prompt1,
 			modelName1,
 			temp1,
 			token1
 		);
-		const response2 = await generateResponseWithOpenAI(
+		const response2 = await callChain(
 			prompt2,
 			modelName2,
 			temp2,

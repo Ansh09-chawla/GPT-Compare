@@ -50,6 +50,5 @@ CREATE TABLE comparisons (
     response1 TEXT,
     response2 TEXT,
     FOREIGN KEY (temperature1) REFERENCES temperatures(temperature),
-    FOREIGN KEY (temperature2) REFERENCES temperatures(temperature),
-    FOREIGN KEY (token1, token2) REFERENCES tokens(min_value, max_value)
+    FOREIGN KEY (temperature2) REFERENCES temperatures(temperature)
 );

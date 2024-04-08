@@ -10,6 +10,9 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@langchain/anthropic": "^0.1.10",
+		"@langchain/community": "^0.0.44",
+		"@langchain/openai": "^0.0.26",
 		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
