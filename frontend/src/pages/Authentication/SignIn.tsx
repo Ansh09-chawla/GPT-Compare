@@ -18,9 +18,10 @@ const SignIn = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  function handleClick() {
-    navigate("/"); // replace '/target-path' with your desired path
-  }
+  const handleClick = (e: any) => {
+    e.preventDefault();
+    navigate("/home");
+  };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -93,19 +94,19 @@ const SignIn = () => {
           >
             Login
           </button>
-          <button
-            onClick={handleClick}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Continue as Guest
-          </button>
-          <p className="text-center text-sm">
-            {"Don’t have an account? "}
-            <a href="/sign-up" className="text-blue-600 hover:underline">
-              Create Account
-            </a>
-          </p>
         </form>
+        <button
+          onClick={handleClick}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Continue as Guest
+        </button>
+        <p className="text-center text-sm">
+          {"Don’t have an account? "}
+          <a href="/sign-up" className="text-blue-600 hover:underline">
+            Create Account
+          </a>
+        </p>
       </div>
     </div>
   );
