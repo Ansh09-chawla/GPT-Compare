@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { comparisonsService } from "../../services/ComparisonsService";
 import { jwtDecode } from "jwt-decode";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 const History = () => {
 	const [history, setHistory] = useState([]);
@@ -76,22 +77,23 @@ const History = () => {
 					</thead>
 					<tbody>
 						{history.map((item) => (
-							<tr key={item.comparison_id}>
+							<tr
+								key={item.comparison_id}
+								onClick={() => handleSelect(item)}
+								className="cursor-pointer hover:bg-gray-100"
+							>
 								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 									{formatDate(item.created_at)}
 								</td>
-								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm flex justify-start space-x-3">
+								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 									<button
-										onClick={() => handleSelect(item)}
-										className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+										onClick={(e) => {
+											e.stopPropagation();
+											handleDeleteHistory(item.comparison_id);
+										}}
+										className="flex items-center justify-center text-red-600 hover:text-red-800"
 									>
-										Select
-									</button>
-									<button
-										onClick={() => handleDeleteHistory(item.comparison_id)}
-										className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-									>
-										Delete
+										<TrashIcon className="h-6 w-6" />
 									</button>
 								</td>
 							</tr>
@@ -104,23 +106,21 @@ const History = () => {
 					{history.map((item) => (
 						<div
 							key={item.comparison_id}
-							className="bg-white p-4 rounded-lg shadow mb-4 space-y-2"
+							onClick={() => handleSelect(item)}
+							className="bg-white p-4 rounded-lg shadow mb-4 space-y-2 cursor-pointer hover:bg-gray-100"
 						>
 							<div>
 								<strong>Timestamp:</strong> {formatDate(item.created_at)}
 							</div>
-							<div className="flex justify-between items-center">
+							<div>
 								<button
-									onClick={() => handleSelect(item)}
-									className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+									onClick={(e) => {
+										e.stopPropagation();
+										handleDeleteHistory(item.comparison_id);
+									}}
+									className="flex items-center justify-center text-red-600 hover:text-red-800"
 								>
-									Select
-								</button>
-								<button
-									onClick={() => handleDeleteHistory(item.comparison_id)}
-									className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-								>
-									Delete
+									<TrashIcon className="h-6 w-6" />
 								</button>
 							</div>
 						</div>
