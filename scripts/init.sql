@@ -49,6 +49,7 @@ CREATE TABLE comparisons (
     prompt2 TEXT,
     response1 TEXT,
     response2 TEXT,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
     FOREIGN KEY (temperature1) REFERENCES temperatures(temperature),
     FOREIGN KEY (temperature2) REFERENCES temperatures(temperature)
 );
