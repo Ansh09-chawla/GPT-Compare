@@ -209,15 +209,19 @@ const Admin = () => {
 						</div>
 					</div>
 					<div className="flex flex-wrap justify-center">
-						{temperatures.map((temp, index) => (
-							<div
-								key={index}
-								className="bg-gray-200 text-gray-800 rounded-full px-3 py-1 mr-2 mb-2"
-							>
-								{temp}
-							</div>
-						))}
+						{temperatures
+							.slice() // create a copy of the array to avoid mutating the original array
+							.sort((a, b) => a - b) // sort the temperatures in ascending order
+							.map((temp, index) => (
+								<div
+									key={index}
+									className="bg-gray-200 text-gray-800 rounded-full px-3 py-1 mr-2 mb-2"
+								>
+									{temp}
+								</div>
+							))}
 					</div>
+
 					<div className="flex flex-col md:flex-row justify-between items-center">
 						<span className="text-lg font-semibold text-gray-900">
 							Token Range:

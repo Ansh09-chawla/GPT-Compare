@@ -237,11 +237,14 @@ const Home = () => {
 								value={formik.values.temp2}
 								className="w-full p-2 border border-gray-300 rounded"
 							>
-								{temperatures.map((temperature, index) => (
-									<option key={index} value={temperature}>
-										{temperature}
-									</option>
-								))}
+								{temperatures
+									.slice()
+									.sort((a, b) => a - b)
+									.map((temperature, index) => (
+										<option key={index} value={temperature}>
+											{temperature}
+										</option>
+									))}
 							</select>
 						</div>
 						<div className="mb-3">
