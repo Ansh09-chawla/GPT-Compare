@@ -189,7 +189,7 @@ const AccountSettings = () => {
             <br />
             {!hidePasswordSection && (
               <div className="flex flex-wrap">
-                <div className="mb-4">
+                <div className="mb-4 w-full sm:w-30">
                   <label
                     htmlFor="currentPassword"
                     className="block text-sm font-normal text-black-700"
@@ -220,7 +220,7 @@ const AccountSettings = () => {
                       onChange={(e) => setNewPassword(e.target.value)}
                     />
                   </div>
-                  <div>
+                  <div className = "sm:w-1/2">
                     <label
                       htmlFor="confirmPassword"
                       className="block text-sm font-normal text-black-700"
