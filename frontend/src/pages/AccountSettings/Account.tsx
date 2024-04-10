@@ -117,7 +117,7 @@ const AccountSettings = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
-      <div className="w-full max-w-10xl p-8 space-y-10 rounded-lg bg-white shadow-lg font-inter">
+      <div className="w-full max-w-8xl p-8 space-y-10 rounded-lg bg-white shadow-lg font-inter">
         <h2 className="text-left text-2xl font-bold text-gray-900">
           Account Settings
         </h2>
@@ -204,7 +204,7 @@ const AccountSettings = () => {
                     onChange={(e) => setCurrentPassword(e.target.value)}
                   />
                 </div>
-                <div className="flex mb-4">
+                <div className="flex flex-wrap">
                   <div className="mr-4">
                     <label
                       htmlFor="newPassword"
@@ -218,9 +218,11 @@ const AccountSettings = () => {
                       className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
+
                     />
                   </div>
-                  <div className = "sm:w-1/2">
+                  <br></br>
+                  <div className="mr-4">
                     <label
                       htmlFor="confirmPassword"
                       className="block text-sm font-normal text-black-700"
@@ -233,6 +235,7 @@ const AccountSettings = () => {
                       className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
+                      
                     />
                   </div>
                 </div>
@@ -243,6 +246,7 @@ const AccountSettings = () => {
                 type="button"
                 onClick={handleChangePassword}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                style={{ marginTop: "16px" }}
               >
                 Save Password
               </button>
