@@ -10,9 +10,9 @@ const AccountSettings = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [showUsernameModal, setShowUsernameModal] = useState(false); // State for controlling the username modal
-  const [showEmailModal, setShowEmailModal] = useState(false); // State for controlling the email modal
-  const [hidePasswordSection, setHidePasswordSection] = useState(false); // State for controlling the visibility of the password section
+  const [showUsernameModal, setShowUsernameModal] = useState(false); 
+  const [showEmailModal, setShowEmailModal] = useState(false); 
+  const [hidePasswordSection, setHidePasswordSection] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +90,7 @@ const AccountSettings = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const token = localStorage.getItem("token"); // to get the user id
+      const token = localStorage.getItem("token"); 
       if (!token) {
         alert("No token found");
         return;
@@ -258,7 +258,6 @@ const AccountSettings = () => {
               Save Account Changes
             </button>
           </div>
-          {/* Username Modal */}
           {showUsernameModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto flex items-center justify-center lg:mr-[-250px]">
               <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -293,7 +292,6 @@ const AccountSettings = () => {
               </div>
             </div>
           )}
-          {/* Email Modal */}
           {showEmailModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto flex items-center justify-center lg:mr-[-250px]">
               <div className="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -319,7 +317,7 @@ const AccountSettings = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={handleCloseEmailModal} // Closing the modal without any logic
+                    onClick={handleCloseEmailModal} 
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-White bg-0E153A hover:bg-0E153A focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-0E153A"
                   >
                     Change
