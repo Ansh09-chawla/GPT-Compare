@@ -19,6 +19,10 @@ const History = () => {
 					const historyData = await comparisonsService.getAllComparisonsById(
 						userId
 					);
+					// Sort historyData by created_at in descending order
+					historyData.sort(
+						(a, b) => new Date(b.created_at) - new Date(a.created_at)
+					);
 					setHistory(historyData);
 				}
 			} catch (error) {
@@ -56,6 +60,14 @@ const History = () => {
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
+	const truncateResponse = (response: string) => {
+		if (response.length > 50) {
+			return response.substring(0, 50) + "...";
+		} else {
+			return response;
+		}
+	};
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
 			<div className="w-full max-w-4xl p-4 space-y-6 rounded-lg bg-white shadow-lg overflow-x-auto md:overflow-visible">
@@ -71,6 +83,12 @@ const History = () => {
 								Timestamp
 							</th>
 							<th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Response 1
+							</th>
+							<th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Response 2
+							</th>
+							<th className="px-5 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 								Actions
 							</th>
 						</tr>
@@ -84,6 +102,12 @@ const History = () => {
 							>
 								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 									{formatDate(item.created_at)}
+								</td>
+								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									{truncateResponse(item.response1)}
+								</td>
+								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									{truncateResponse(item.response2)}
 								</td>
 								<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 									<button
@@ -111,6 +135,12 @@ const History = () => {
 						>
 							<div>
 								<strong>Timestamp:</strong> {formatDate(item.created_at)}
+							</div>
+							<div>
+								<strong>Response 1:</strong> {truncateResponse(item.response1)}
+							</div>
+							<div>
+								<strong>Response 2:</strong> {truncateResponse(item.response2)}
 							</div>
 							<div>
 								<button
