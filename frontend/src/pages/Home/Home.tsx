@@ -309,21 +309,21 @@ const Home = () => {
           </button>
         </div>
       </form>
-      <div className="flex space-x-4">
-        <div className="bg-white p-5 rounded shadow w-1/2 mt-8 h-64">
-          <span className="text-gray-600 text-base">Output</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-inter">
+        <div className="bg-white p-5 rounded shadow  mt-8 h-64 overflow-auto">
+          <span className="mb-px text-gray-600 text-base">Output</span>
           {isLoading ? (
-            <div className="bg-white p-5 rounded shadow w-1/2">
+            <div className="flex justify-center items-center h-full">
               <Spinner color="blue" />
             </div>
           ) : (
             <div>{response1}</div>
           )}
         </div>
-        <div className="bg-white p-5 rounded shadow w-1/2 mt-8 h-64">
-          <span className="text-gray-600 text-base">Output</span>
+        <div className="bg-white p-5 rounded shadow  mt-8 h-64 overflow-auto">
+          <span className="mb-px text-gray-600 text-base">Output</span>
           {isLoading ? (
-            <div className="bg-white p-5 rounded shadow w-1/2">
+            <div className="flex justify-center items-center h-full">
               <Spinner color="blue" />
             </div>
           ) : (
