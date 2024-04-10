@@ -117,7 +117,7 @@ const AccountSettings = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
-      <div className="w-full max-w-xl p-8 space-y-6 rounded-lg bg-white shadow-lg font-inter">
+      <div className="w-full max-w-10xl p-8 space-y-10 rounded-lg bg-white shadow-lg font-inter">
         <h2 className="text-left text-2xl font-bold text-gray-900">
           Account Settings
         </h2>
