@@ -12,6 +12,7 @@ const AccountSettings = () => {
   const [role, setRole] = useState("");
   const [showUsernameModal, setShowUsernameModal] = useState(false); // State for controlling the username modal
   const [showEmailModal, setShowEmailModal] = useState(false); // State for controlling the email modal
+  const [hidePasswordSection, setHidePasswordSection] = useState(false); // State for controlling the visibility of the password section
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,6 +111,10 @@ const AccountSettings = () => {
     }
   };
 
+  const togglePasswordSection = () => {
+    setHidePasswordSection(!hidePasswordSection);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
       <div className="w-full max-w-xl p-8 space-y-6 rounded-lg bg-white shadow-lg font-inter">
@@ -169,66 +174,79 @@ const AccountSettings = () => {
             <div className="border-b border-gray-300 my-4"></div>
           </div>
           <div>
-            <h5 className="text-left text-xl font-bold text-gray-900">
-              Password
-            </h5>
-            <br />
-            <div className="flex flex-wrap">
-              <div className="mb-4">
-                <label
-                  htmlFor="currentPassword"
-                  className="block text-sm font-normal text-black-700"
-                >
-                  <strong>Current Password:</strong>
-                </label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                />
-              </div>
-              <div className="flex mb-4">
-                <div className="mr-4">
-                  <label
-                    htmlFor="newPassword"
-                    className="block text-sm font-normal text-black-700"
-                  >
-                    <strong> New Password:</strong>
-                  </label>
-                  <input
-                    type="password"
-                    id="newPassword"
-                    className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="confirmPassword"
-                    className="block text-sm font-normal text-black-700"
-                  >
-                    <strong>Confirm New Password:</strong>
-                  </label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
-              </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <h5 className="text-left text-xl font-bold text-gray-900">
+                Password
+              </h5>
+              <span
+                className="text-blue-500 cursor-pointer underline"
+                onClick={togglePasswordSection}
+                style={{ textDecoration: "underline" }} 
+              >
+                {hidePasswordSection ? "Show" : "Hide"}
+              </span>
             </div>
-            <button
-              type="button"
-              onClick={handleChangePassword}
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Save Password
-            </button>
+            <br />
+            {!hidePasswordSection && (
+              <div className="flex flex-wrap">
+                <div className="mb-4">
+                  <label
+                    htmlFor="currentPassword"
+                    className="block text-sm font-normal text-black-700"
+                  >
+                    <strong>Current Password:</strong>
+                  </label>
+                  <input
+                    type="password"
+                    id="currentPassword"
+                    className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                  />
+                </div>
+                <div className="flex mb-4">
+                  <div className="mr-4">
+                    <label
+                      htmlFor="newPassword"
+                      className="block text-sm font-normal text-black-700"
+                    >
+                      <strong> New Password:</strong>
+                    </label>
+                    <input
+                      type="password"
+                      id="newPassword"
+                      className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="confirmPassword"
+                      className="block text-sm font-normal text-black-700"
+                    >
+                      <strong>Confirm New Password:</strong>
+                    </label>
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+            {!hidePasswordSection && (
+              <button
+                type="button"
+                onClick={handleChangePassword}
+                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Save Password
+              </button>
+            )}
             <div className="border-b border-gray-300 my-4"></div>
           </div>
           <div className="flex justify-center">
@@ -257,7 +275,7 @@ const AccountSettings = () => {
                   />
                 </div>
                 <div className="flex justify-end">
-                <button
+                  <button
                     type="button"
                     onClick={handleCloseUsernameModal}
                     className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
