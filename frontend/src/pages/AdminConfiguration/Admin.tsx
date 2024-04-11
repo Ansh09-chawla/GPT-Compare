@@ -248,7 +248,6 @@ const Admin = () => {
 							</label>
 							<input
 								id="min"
-								type="number"
 								value={minTokenValue}
 								onChange={handleMinChange}
 								className="mt-1 justify-center px-2 py-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm w-full md:w-40"
@@ -263,7 +262,6 @@ const Admin = () => {
 							</label>
 							<input
 								id="max"
-								type="number"
 								value={maxTokenValue}
 								onChange={handleMaxChange}
 								className="mt-1 justify-center px-2 py-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm w-full md:w-40"
