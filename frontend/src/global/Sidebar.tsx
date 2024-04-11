@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import {
   UserCircleIcon,
+  PlusCircleIcon,
   Cog6ToothIcon,
   PowerIcon,
   HomeIcon,
@@ -67,6 +68,16 @@ export default function Sidebar() {
             Help
           </ListItem>
         </Link>
+        {userRole !== "user" && userRole !== "admin" && (
+          <Link to="/sign-up" className="no-underline text-[#171717]">
+            <ListItem>
+              <ListItemPrefix>
+                <PlusCircleIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              Create Account
+            </ListItem>
+          </Link>
+        )}
         {userRole === "admin" && (
           <>
             <Link
