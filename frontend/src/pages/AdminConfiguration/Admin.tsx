@@ -19,6 +19,7 @@ const Admin = () => {
 	const [modalEntity, setModalEntity] = useState<
 		"aiModel" | "temperature" | ""
 	>("");
+	const aiModelOptions = ["gpt-3.5-turbo", "gpt-4", "gpt-4-turbo"];
 
 	useEffect(() => {
 		const fetchInitialData = async () => {
@@ -105,12 +106,18 @@ const Admin = () => {
 		setShowModel(true);
 		setModalAction("add");
 		setModalEntity("aiModel");
+		if (aiModels.length > 0) {
+			setInputValue(aiModelOptions[0]);
+		}
 	};
 
 	const handleRemoveModelClick = () => {
 		setShowModel(true);
 		setModalAction("remove");
 		setModalEntity("aiModel");
+		if (aiModels.length > 0) {
+			setInputValue(aiModels[0].model_name);
+		}
 	};
 
 	const handleAddTemperatureClick = () => {
@@ -123,6 +130,9 @@ const Admin = () => {
 		setShowModel(true);
 		setModalAction("remove");
 		setModalEntity("temperature");
+		if (temperatures.length > 0) {
+			setInputValue(temperatures[0].toString());
+		}
 	};
 
 	const handleConfirmModalAction = async () => {
@@ -275,15 +285,57 @@ const Admin = () => {
 							{modalAction === "add" ? "Add" : "Remove"}{" "}
 							{modalEntity === "aiModel" ? "AI Model" : "Temperature"}
 						</h2>
-						<input
-							type="text"
-							className="border border-gray-300 rounded-md px-3 py-2 w-full mb-4"
-							placeholder={
-								modalEntity === "aiModel" ? "Model Name" : "Temperature Value"
-							}
-							value={inputValue}
-							onChange={handleInputChange}
-						/>
+						{modalEntity === "aiModel" &&
+							(modalAction === "add" ? (
+								<select
+									value={inputValue}
+									onChange={handleInputChange}
+									className="border border-gray-300 rounded-md px-3 py-2 w-full mb-4"
+								>
+									{aiModelOptions.map((model, index) => (
+										<option key={index} value={model}>
+											{model}
+										</option>
+									))}
+								</select>
+							) : (
+								<select
+									value={inputValue}
+									onChange={handleInputChange}
+									className="border border-gray-300 rounded-md px-3 py-2 w-full mb-4"
+								>
+									{aiModels.map((model, index) => (
+										<option key={index} value={model.model_name}>
+											{model.model_name}
+										</option>
+									))}
+								</select>
+							))}
+						{modalEntity === "temperature" &&
+							(modalAction === "add" ? (
+								<input
+									type="text"
+									className="border border-gray-300 rounded-md px-3 py-2 w-full mb-4"
+									placeholder="Temperature Value"
+									value={inputValue}
+									onChange={handleInputChange}
+								/>
+							) : (
+								<select
+									value={inputValue}
+									onChange={handleInputChange}
+									className="border border-gray-300 rounded-md px-3 py-2 w-full mb-4"
+								>
+									{temperatures
+										.slice()
+										.sort((a, b) => a - b)
+										.map((temp, index) => (
+											<option key={index} value={temp}>
+												{temp}
+											</option>
+										))}
+								</select>
+							))}
 						<div className="flex justify-end">
 							<button
 								onClick={handleModalClose}
