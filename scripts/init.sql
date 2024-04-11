@@ -22,7 +22,7 @@ CREATE TABLE ai_models (
 -- Create tokens table
 DROP TABLE IF EXISTS tokens CASCADE;
 CREATE TABLE tokens (
-    min_value INT,
+    min_value INT CHECK (min_value > 0),
     max_value INT,
     PRIMARY KEY (min_value, max_value)
 );

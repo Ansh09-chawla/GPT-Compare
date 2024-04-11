@@ -8,7 +8,7 @@ const Help = () => {
 				<br />
 				<div className="space-y-8">
 					<div>
-						<h2 className="text-xl font-bold text-gray-700 py-6">
+						<h2 className="text-xl font-bold text-gray-900 py-6">
 							FAQ Questions
 						</h2>
 						<div className="ml-4">
@@ -46,7 +46,7 @@ const Help = () => {
 					</div>
 
 					<div>
-						<h2 className="text-xl font-bold text-gray-700 py-6">FAQs Link</h2>
+						<h2 className="text-xl font-bold text-gray-900 py-6">FAQs Link</h2>
 						<div className="ml-4">
 							<p className="text-gray-600 hover:text-gray-900 transition-colors duration-300">
 								GPTCompare.com
@@ -54,7 +54,7 @@ const Help = () => {
 						</div>
 					</div>
 					<div>
-						<h2 className="text-xl font-bold text-gray-700 py-6">
+						<h2 className="text-xl font-bold text-gray-900 py-6">
 							AI models link
 						</h2>
 						<div className="ml-4">
