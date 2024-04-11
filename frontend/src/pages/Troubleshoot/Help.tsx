@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const Help = () => {
-  const [faqVisibility, setFaqVisibility] = useState({});
-  const toggleVisibility = (index) => {
+  const [faqVisibility, setFaqVisibility] = useState<{ [key: number]: boolean }>({});
+  const toggleVisibility = (index:number ) => {
     setFaqVisibility({
       ...faqVisibility,
       [index]: !faqVisibility[index]
@@ -407,7 +407,7 @@ const Help = () => {
           </div>
 		  <br></br>
 		  <p> For more information about the AI models please visit the link below :</p>
-		  <p className="inline"> AI Models : <a href="https://platform.openai.com/docs/models" target="_blank" class="underline">AImodels.com</a></p>
+		  <p className="inline"> AI Models : <a href="https://platform.openai.com/docs/models" target="_blank" className="underline">AImodels.com</a></p>
 
         </div>
       </div>
