@@ -10,9 +10,9 @@ const AccountSettings = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [showUsernameModal, setShowUsernameModal] = useState(false); 
-  const [showEmailModal, setShowEmailModal] = useState(false); 
-  const [hidePasswordSection, setHidePasswordSection] = useState(false); 
+  const [showUsernameModal, setShowUsernameModal] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [hidePasswordSection, setHidePasswordSection] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +90,7 @@ const AccountSettings = () => {
 
   const handleSaveChanges = async () => {
     try {
-      const token = localStorage.getItem("token"); 
+      const token = localStorage.getItem("token");
       if (!token) {
         alert("No token found");
         return;
@@ -116,7 +116,7 @@ const AccountSettings = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6 py-6">
       <div className="w-full max-w-8xl p-8 space-y-10 rounded-lg bg-white shadow-lg font-inter">
         <h2 className="text-left text-2xl font-bold text-gray-900">
           Account Settings
@@ -124,14 +124,20 @@ const AccountSettings = () => {
         <br />
         <form className="space-y-4">
           <div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <h5 className="text-left text-xl font-bold text-gray-900">
                 Username
               </h5>
               <span
                 className="text-blue-500 cursor-pointer underline"
                 onClick={handleOpenUsernameModal}
-                style={{ textDecoration: "underline" }} 
+                style={{ textDecoration: "underline" }}
               >
                 Change
               </span>
@@ -145,14 +151,20 @@ const AccountSettings = () => {
           </div>
 
           <div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <h5 className="text-left text-xl font-bold text-gray-900">
                 Email address
               </h5>
               <span
                 className="text-blue-500 cursor-pointer underline"
                 onClick={handleOpenEmailModal}
-                style={{ textDecoration: "underline" }} 
+                style={{ textDecoration: "underline" }}
               >
                 Change
               </span>
@@ -174,14 +186,20 @@ const AccountSettings = () => {
             <div className="border-b border-gray-300 my-4"></div>
           </div>
           <div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
               <h5 className="text-left text-xl font-bold text-gray-900">
                 Password
               </h5>
               <span
                 className="text-blue-500 cursor-pointer underline"
                 onClick={togglePasswordSection}
-                style={{ textDecoration: "underline" }} 
+                style={{ textDecoration: "underline" }}
               >
                 {hidePasswordSection ? "Show" : "Hide"}
               </span>
@@ -218,7 +236,6 @@ const AccountSettings = () => {
                       className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-
                     />
                   </div>
                   <br></br>
@@ -235,7 +252,6 @@ const AccountSettings = () => {
                       className="mt-1 block w-30 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      
                     />
                   </div>
                 </div>
@@ -264,7 +280,10 @@ const AccountSettings = () => {
           </div>
           {showUsernameModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto flex items-center justify-center lg:mr-[-250px]">
-              <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div
+                className="fixed inset-0 transition-opacity"
+                aria-hidden="true"
+              >
                 <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
               </div>
               <div className="z-20 bg-white rounded-lg shadow-lg p-6 mx-auto max-w-md">
@@ -298,12 +317,17 @@ const AccountSettings = () => {
           )}
           {showEmailModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto flex items-center justify-center lg:mr-[-250px]">
-              <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div
+                className="fixed inset-0 transition-opacity"
+                aria-hidden="true"
+              >
                 <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
               </div>
               <div className="z-20 bg-white rounded-lg shadow-lg p-6 mx-auto max-w-md">
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold mb-2">Change Email Address</h3>
+                  <h3 className="text-lg font-bold mb-2">
+                    Change Email Address
+                  </h3>
                   <input
                     type="email"
                     className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -321,7 +345,7 @@ const AccountSettings = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={handleCloseEmailModal} 
+                    onClick={handleCloseEmailModal}
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Change

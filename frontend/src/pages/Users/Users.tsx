@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { usersService } from "../../services/UsersService";
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -48,9 +49,9 @@ const Users = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-4xl p-4 space-y-6 rounded-lg bg-white shadow-lg overflow-x-auto md:overflow-visible">
-        <h2 className="text-center text-2xl font-bold text-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6 py-6">
+      <div className="w-full min-h-screen p-4 space-y-6 rounded-lg bg-white shadow-lg overflow-x-auto md:overflow-visible">
+        <h2 className="text-left text-2xl font-bold text-gray-900">
           Users List
         </h2>
         <table className="min-w-full leading-normal hidden md:table">
@@ -92,9 +93,14 @@ const Users = () => {
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <button
                     onClick={() => handleDeleteUser(user.id)}
-                    className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    disabled={user.username === "admin"}
+                    className={`flex items-center justify-center pl-7 ${
+                      user.username === "admin"
+                        ? "text-gray-500 cursor-not-allowed"
+                        : "text-red-600 hover:text-red-800"
+                    }`}
                   >
-                    Delete
+                    <TrashIcon className="h-6 w-6" />
                   </button>
                 </td>
               </tr>
@@ -129,9 +135,14 @@ const Users = () => {
               <div className="mt-2">
                 <button
                   onClick={() => handleDeleteUser(user.id)}
-                  className="mr-5 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  disabled={user.username === "admin"}
+                  className={` items-center justify-center  ${
+                    user.username === "admin"
+                      ? "text-gray-500 cursor-not-allowed"
+                      : "text-red-600 hover:text-red-800"
+                  }`}
                 >
-                  Delete
+                  <TrashIcon className="h-6 w-6 " />
                 </button>
               </div>
             </div>
