@@ -182,7 +182,7 @@ const AccountSettings = () => {
             <h5 className="text-left text-xl font-bold text-gray-900">Role</h5>
             <br />
             <p>
-              Your account is role is{" "}
+              Your account role is{" "}
               <span style={{ fontWeight: "bold" }}>{role}</span>
             </p>
             <div className="border-b border-gray-300 my-4"></div>
