@@ -63,7 +63,7 @@ Log in using the credentials provided:
 
 2. General tab:
 
-- Name: this is `gpt_compare`
+    - Name: this is `gpt_compare`
 
 3. Connection tab:
     
