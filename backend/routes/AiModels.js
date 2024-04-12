@@ -1,8 +1,8 @@
 import express from "express";
 import {
-  getAllAIModels,
-  addAIModel,
-  deleteAIModel,
+	getAllAIModels,
+	addAIModel,
+	deleteAIModel,
 } from "../controllers/AiModels.js";
 import { verifyJwtToken } from "../middlewares/VerifyJwtToken.js";
 

@@ -8,7 +8,7 @@ import { verifyJwtToken } from "../middlewares/VerifyJwtToken.js";
 
 const temperatureRoutes = express.Router();
 
-temperatureRoutes.get("/", verifyJwtToken, getAlltemperatures);
+temperatureRoutes.get("/", getAlltemperatures);
 temperatureRoutes.post("/add", verifyJwtToken, addTemperature);
 temperatureRoutes.delete(
 	"/delete/:temperature",

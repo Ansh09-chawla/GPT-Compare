@@ -8,7 +8,7 @@ import { verifyJwtToken } from "../middlewares/VerifyJwtToken.js";
 
 const tokenRoutes = express.Router();
 
-tokenRoutes.get("/", verifyJwtToken, getAllTokens);
+tokenRoutes.get("/", getAllTokens);
 tokenRoutes.post("/update", verifyJwtToken, updateTokens);
 tokenRoutes.delete("/delete/:minValue/:maxValue", verifyJwtToken, deleteToken);
 
