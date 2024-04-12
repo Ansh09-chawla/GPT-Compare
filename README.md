@@ -29,3 +29,45 @@ docker-compose up --build
 ```
 
 The `down -v` command removes the containers and their volumes, effectively resetting the database. Running `up --build` after this will rebuild the images and restart the containers, reapplying the initialization scripts.
+
+## Accessing Dockerized PostgreSQL with Dockerized pgAdmin4 (optional if you want to view the database)
+
+### Access pgAdmin4
+
+Open your web browser and navigate to **http://localhost:5050**.
+Log in using the credentials provided:
+
+**Email:** admin@gptcompare.com
+**Password:** password
+
+### Create a New Server in pgAdmin4
+
+1. Right-click on 'Servers' in the left sidebar of pgAdmin4.
+2. Select 'Create' and then 'Server' to open the server creation dialog.
+
+### Determine the Host Name of the PostgreSQL Container
+
+1. Open your terminal.
+2. Type the command `docker container ls` to list all running containers.
+3. Locate the container running the PostgreSQL image (named `postgres:latest`).
+4. Copy the Container ID of the PostgreSQL container.
+
+### Inspect the PostgreSQL Container
+
+1. In your terminal, type `docker inspect <container ID>` replacing `<container ID>` with the ID you just copied.
+2. From the output, identify the IP address under "IPAddress" which will be used as the host address in pgAdmin4.
+
+### Configure the Server in pgAdmin4
+
+1. Right-click on `Server`, left-click on `Register > Server`, 
+
+2. In the 'Register - Server' dialog in pgAdmin4, do the following:
+
+**Name:** this is `gpt_compare`
+**Connection tab:**
+**Hostname/address:** Paste the IP address you found from the docker inspect output.
+**Port:** this is `5432` for PostgreSQL.
+**Maintenance database:** this is `postgres`
+**Username:** this is `postgres`
+**Password:** this is `password`
+Click 'Save' to establish the connection.
