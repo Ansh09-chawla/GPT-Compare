@@ -67,14 +67,22 @@ Log in using the credentials provided:
 
 3. Connection tab:
     
-- Hostname/address: Paste the IP address you found from the docker inspect output.
+    - Hostname/address: Paste the IP address you found from the docker inspect output.
     
-- Port: this is `5432` for PostgreSQL.
+    - Port: this is `5432` for PostgreSQL.
     
-- Maintenance database: this is `postgres`
+    - Maintenance database: this is `postgres`
     
-- Username: this is `postgres`
+    - Username: this is `postgres`
     
-- Password: this is `password`
+    - Password: this is `password`
 
 4. Click 'Save' to establish the connection.
+
+## Steps to Sign In to the GPT Compare App as a Default admin
+
+1. Open the application and navigate to the login screen.
+2. In the login form, enter `admin` as the username.
+3. For the password, type `password`.
+4. Click on the Sign In button or press Enter.
+5. You should now be logged in as the admin and have access to all administrative functionalities. For security reasons, it is highly recommended to change the default admin password after your first login.
