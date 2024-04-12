@@ -61,13 +61,12 @@ Log in using the credentials provided:
 
 1. Right-click on `Server`, left-click on `Register > Server`, 
 
-2. In the 'Register - Server' dialog in pgAdmin4, do the following:
-
-**Name:** this is `gpt_compare`
-**Connection tab:**
-**Hostname/address:** Paste the IP address you found from the docker inspect output.
-**Port:** this is `5432` for PostgreSQL.
-**Maintenance database:** this is `postgres`
-**Username:** this is `postgres`
-**Password:** this is `password`
-Click 'Save' to establish the connection.
+2. In the 'Register - Server' dialog in pgAdmin4:
+    Name: this is `gpt_compare`
+    Connection tab:
+    Hostname/address: Paste the IP address you found from the docker inspect output.
+    Port: this is `5432` for PostgreSQL.
+    Maintenance database: this is `postgres`
+    Username: this is `postgres`
+    Password: this is `password`
+    Click 'Save' to establish the connection.
