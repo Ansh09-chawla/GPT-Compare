@@ -1,4 +1,4 @@
-# seng513-202401-group-1
+# GPT Compare
 
 ## Application Setup and Initialization Guide
 
